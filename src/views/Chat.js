@@ -3,6 +3,7 @@ import axios from "axios";
 import RoomsList from "./../components/RoomsList";
 import RoomMessages from "./../components/RoomMessages";
 import AddMessage from "./../components/AddMessage";
+import AddRoom from "./../components/AddRoom";
 
 export default function ChatMain() {
   const [chatRooms, setChatRooms] = useState([]);
@@ -61,6 +62,14 @@ export default function ChatMain() {
       });
   };
 
+  const handleNewRoom = (item) => {
+    console.log(item);
+    setChatRooms((prev) => {
+      return prev.concat(item);
+    });
+    setActiveRoom(item);
+  };
+
   return (
     <div className="row">
       <div className="col-3">
@@ -68,6 +77,7 @@ export default function ChatMain() {
           list={chatRooms}
           roomClicked={(item) => setActiveRoom(item)}
         />
+        <AddRoom newRoom={(item) => handleNewRoom(item)} />
       </div>
       <main className="col-7">
         <div className="card">
