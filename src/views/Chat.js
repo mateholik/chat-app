@@ -1,10 +1,12 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
+import RoomsList from "./../components/RoomsList";
+import RoomMessages from "./../components/RoomMessages";
+import AddMessage from "./../components/AddMessage";
 
-export default function Chat() {
+export default function ChatMain() {
   const [chatRooms, setChatRooms] = useState([]);
-  const [openedRoom, setOpenedRoom] = useState({});
-  const [input, setValue] = useState("");
+  const [activeRoom, setActiveRoom] = useState({});
 
   useEffect(() => {
     axios
@@ -22,25 +24,24 @@ export default function Chat() {
       });
   }, []);
 
-  const submit = () => {
-    const roomId = openedRoom.chatRoomId;
+  const submit = (newMessage) => {
+    const roomId = activeRoom.chatRoomId;
     const updatedRooms = chatRooms.map((item) => {
       if (item.chatRoomId === roomId) {
         return item.addedMessages
-          ? { ...item, addedMessages: [...item.addedMessages, input] }
-          : { ...item, addedMessages: [input] };
+          ? { ...item, addedMessages: [...item.addedMessages, newMessage] }
+          : { ...item, addedMessages: [newMessage] };
       } else {
         return item;
       }
     });
 
     setChatRooms(updatedRooms);
-    setOpenedRoom(
+    setActiveRoom(
       updatedRooms.find((item) => {
         return item.chatRoomId === roomId;
       })
     );
-    setValue("");
     updateAPI(updatedRooms);
   };
 
@@ -63,72 +64,16 @@ export default function Chat() {
   return (
     <div className="row">
       <div className="col-3">
-        {chatRooms.map((item) => {
-          return (
-            <div
-              onClick={() => setOpenedRoom(item)}
-              className="card mb-2"
-              key={item.chatRoomId}
-            >
-              <div
-                className="card-body d-flex align-items-center"
-                style={{ cursor: "pointer" }}
-              >
-                <img
-                  src={item.img}
-                  className="img-thumbnail rounded-circle"
-                  alt="avatar"
-                  style={{ width: "50px" }}
-                ></img>
-                <h5 className="card-title m-2">{item.user}</h5>
-              </div>
-            </div>
-          );
-        })}
+        <RoomsList
+          list={chatRooms}
+          roomClicked={(item) => setActiveRoom(item)}
+        />
       </div>
       <main className="col-7">
         <div className="card">
           <div className="card-body">
-            <ul className="list-group">
-              {Object.keys(openedRoom).length > 0 &&
-                openedRoom.messages.map((item) => {
-                  return (
-                    <li className="list-group-item text-end" key={item.id}>
-                      {item.text}
-                    </li>
-                  );
-                })}
-
-              {openedRoom.addedMessages &&
-                openedRoom.addedMessages.map((item) => {
-                  return (
-                    <li className="list-group-item" key={item}>
-                      {item}
-                    </li>
-                  );
-                })}
-            </ul>
-            <div className="input-group mt-2">
-              <input
-                type="text"
-                className="form-control"
-                placeholder="Type..."
-                aria-label="Type..."
-                name="message"
-                aria-describedby="basic-addon2"
-                onChange={(e) => setValue(e.target.value)}
-                value={input}
-              ></input>
-              <div className="input-group-append">
-                <button
-                  onClick={submit}
-                  className="btn btn-outline-secondary"
-                  type="button"
-                >
-                  Send
-                </button>
-              </div>
-            </div>
+            <RoomMessages activeRoom={activeRoom} />
+            <AddMessage addMessage={(item) => submit(item)} />
           </div>
         </div>
       </main>
