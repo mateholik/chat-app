@@ -14,10 +14,20 @@ export default function Header() {
               <NavLink
                 exact
                 className="nav-link"
-                to="/login"
+                to="/"
                 activeClassName="active"
               >
                 Login
+              </NavLink>
+            </li>
+            <li className="nav-item">
+              <NavLink
+                exact
+                className="nav-link"
+                to="/chat"
+                activeClassName="active"
+              >
+                Chat
               </NavLink>
             </li>
             <li className="nav-item">
@@ -28,16 +38,6 @@ export default function Header() {
                 activeClassName="active"
               >
                 Profile
-              </NavLink>
-            </li>
-            <li className="nav-item">
-              <NavLink
-                exact
-                className="nav-link"
-                to="/"
-                activeClassName="active"
-              >
-                Chat
               </NavLink>
             </li>
           </ul>

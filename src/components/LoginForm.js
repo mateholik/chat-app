@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useHistory } from "react-router-dom";
 
 const initialState = {
   email: "",
@@ -7,8 +8,10 @@ const initialState = {
   passwordError: "",
 };
 
-export default function LoginForm() {
+export default function LoginForm({ validForm }) {
   const [formData, setFormData] = useState(initialState);
+
+  const history = useHistory();
 
   const handleInputs = (e) => {
     setFormData((prev) => {
@@ -31,7 +34,7 @@ export default function LoginForm() {
       passwordError = "Input is required";
     } else if (formData.password && formData.password.length < 3) {
       passwordError = "Password must contain at least 3 chars";
-    } else if (formData.password && formData.password !== "testtest") {
+    } else if (formData.password && formData.password !== "test") {
       passwordError = "Wrong password";
     }
 
@@ -47,10 +50,9 @@ export default function LoginForm() {
     e.preventDefault();
     const valid = validateInputs();
     if (valid) {
-      console.log(formData);
       setFormData(initialState);
-    } else {
-      console.log("invalidas");
+      validForm();
+      history.push("/chat");
     }
   };
 

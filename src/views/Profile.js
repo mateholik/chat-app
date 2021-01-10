@@ -1,11 +1,18 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import ProfileData from "./../components/ProfileData";
 
-export default function Profile() {
+export default function Profile({ isAuthed }) {
   return (
     <div>
       <h1 className="text-center">Profile details</h1>
-      <ProfileData />
+      {!isAuthed ? (
+        <p>
+          Please <Link to="/">login</Link>
+        </p>
+      ) : (
+        <ProfileData />
+      )}
     </div>
   );
 }
