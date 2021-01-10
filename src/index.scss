@@ -1,0 +1,131 @@
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
+    "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
+    monospace;
+}
+
+header .nav-link {
+  color: #dcdcdc;
+}
+header .nav-link:hover {
+  color: #fff;
+}
+header .active {
+  color: #fff;
+}
+header .navbar-brand {
+  font-weight: 500;
+}
+
+.tip-box {
+  position: relative;
+  span {
+    width: 2rem;
+    height: 2rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 50%;
+    background: #fd9c0d;
+    color: #fff;
+    font-weight: 500;
+    margin-left: 1rem;
+    cursor: pointer;
+    &:hover + .tip {
+      opacity: 1;
+    }
+  }
+  .tip {
+    position: absolute;
+    left: 120%;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 10rem;
+    opacity: 0;
+    transition: 0.2s;
+  }
+}
+
+.profile {
+  &__img {
+    position: relative;
+    width: 15rem;
+    height: 15rem;
+    margin: 0 auto;
+    border-radius: 50%;
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+    margin-bottom: 2rem;
+    overflow: hidden;
+    &:hover {
+      .upload {
+        bottom: 0;
+      }
+    }
+    .upload {
+      position: absolute;
+      bottom: -100%;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background: #fd9c0da8;
+      transition: 0.2s;
+      input {
+        display: none;
+      }
+      img {
+        width: 2.5rem;
+        height: auto;
+        cursor: pointer;
+        transition: 0.2s;
+        &:hover {
+          transform: scale(1.1);
+        }
+      }
+    }
+  }
+  &__block {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 1rem;
+    .input-wrap {
+      width: 100%;
+      font-size: 1.25rem;
+      display: flex;
+      span {
+        display: block;
+        color: rgba(0, 0, 0, 0.5);
+        white-space: nowrap;
+        margin-right: 0.5rem;
+      }
+      input,
+      textarea {
+        width: 100%;
+        border: none;
+        outline: none;
+      }
+      textarea {
+        resize: none;
+        height: 250px;
+      }
+    }
+    img {
+      width: 1.5rem;
+      cursor: pointer;
+      align-self: flex-start;
+      margin-left: 1rem;
+    }
+  }
+}
