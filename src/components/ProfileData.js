@@ -46,7 +46,7 @@ export default function ProfileData() {
 
   return (
     <div className="profile row">
-      <div className="col-6 mx-auto">
+      <div className="col-lg-6 mx-auto">
         <div
           className="profile__img"
           style={{ backgroundImage: `url(${user.image})` }}
@@ -56,86 +56,87 @@ export default function ProfileData() {
             <img src={uploadIcon} alt="upload" />
           </label>
         </div>
-        <div className="profile__block">
-          <div className="input-wrap">
-            <span>Name: </span>
-            <input
-              type="text"
-              value={user.name}
-              name="name"
-              onChange={handleInputs}
-              ref={nameInput}
-              disabled
-              onBlur={(e) => e.target.setAttribute("disabled", true)}
-            ></input>
+        <form>
+          <div className="profile__block">
+            <div className="input-wrap">
+              <span>Name: </span>
+              <input
+                type="text"
+                value={user.name}
+                name="name"
+                onChange={handleInputs}
+                ref={nameInput}
+                disabled
+                onBlur={(e) => e.target.setAttribute("disabled", true)}
+              ></input>
+            </div>
+            <img
+              src={editIcon}
+              alt="edit"
+              onClick={() => handleEdit(nameInput)}
+            />
           </div>
-          <img
-            src={editIcon}
-            alt="edit"
-            onClick={() => handleEdit(nameInput)}
-          />
-        </div>
-        <div className="profile__block">
-          <div className="input-wrap">
-            <span>Nickname: </span>
-            <input
-              type="text"
-              value={user.nickName}
-              name="nickName"
-              onChange={handleInputs}
-              ref={nickNameInput}
-              disabled
-              onBlur={(e) => e.target.setAttribute("disabled", true)}
-            ></input>
+          <div className="profile__block">
+            <div className="input-wrap">
+              <span>Nickname: </span>
+              <input
+                type="text"
+                value={user.nickName}
+                name="nickName"
+                onChange={handleInputs}
+                ref={nickNameInput}
+                disabled
+                onBlur={(e) => e.target.setAttribute("disabled", true)}
+              ></input>
+            </div>
+            <img
+              src={editIcon}
+              onClick={() => handleEdit(nickNameInput)}
+              alt="edit"
+            />
           </div>
-          <img
-            src={editIcon}
-            onClick={() => handleEdit(nickNameInput)}
-            alt="edit"
-          />
-        </div>
-        <div className="profile__block">
-          <div className="input-wrap">
-            <span>Birth Date: </span>
-            <input
-              type="text"
-              value={user.birthDate}
-              name="birthDate"
-              onChange={handleInputs}
-              ref={birthDateInput}
-              disabled
-              onBlur={(e) => e.target.setAttribute("disabled", true)}
-            ></input>
+          <div className="profile__block">
+            <div className="input-wrap">
+              <span>Birth Date: </span>
+              <input
+                type="text"
+                value={user.birthDate}
+                name="birthDate"
+                onChange={handleInputs}
+                ref={birthDateInput}
+                disabled
+                onBlur={(e) => e.target.setAttribute("disabled", true)}
+              ></input>
+            </div>
+            <img
+              src={editIcon}
+              onClick={() => handleEdit(birthDateInput)}
+              alt="edit"
+            />
           </div>
-          <img
-            src={editIcon}
-            onClick={() => handleEdit(birthDateInput)}
-            alt="edit"
-          />
-        </div>
-
-        <div className="profile__block">
-          <div className="input-wrap">
-            <span>About: </span>
-            <textarea
-              type="text"
-              value={user.about}
-              name="about"
-              onChange={handleInputs}
-              ref={aboutInput}
-              disabled
-              onBlur={(e) => e.target.setAttribute("disabled", true)}
-            ></textarea>
+          <div className="profile__block">
+            <div className="input-wrap">
+              <span>About: </span>
+              <textarea
+                type="text"
+                value={user.about}
+                name="about"
+                onChange={handleInputs}
+                ref={aboutInput}
+                disabled
+                onBlur={(e) => e.target.setAttribute("disabled", true)}
+              ></textarea>
+            </div>
+            <img
+              style={{
+                alignSelf: "flex-start",
+              }}
+              src={editIcon}
+              alt="edit"
+              onClick={() => handleEdit(aboutInput)}
+            />
           </div>
-          <img
-            style={{
-              alignSelf: "flex-start",
-            }}
-            src={editIcon}
-            alt="edit"
-            onClick={() => handleEdit(aboutInput)}
-          />
-        </div>
+        </form>
       </div>
     </div>
   );

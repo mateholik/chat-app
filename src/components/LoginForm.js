@@ -55,8 +55,8 @@ export default function LoginForm() {
   };
 
   return (
-    <div className="row mb-4">
-      <div className="col-4">
+    <div className="row">
+      <div className="col-lg-4 mx-auto">
         <form>
           <div className="mb-3">
             <label htmlFor="email" className="form-label">

@@ -9,7 +9,7 @@ function App() {
   return (
     <Router>
       <Header />
-      <div className="container">
+      <div className="container container--app">
         <Route path="/" exact component={Chat} />
         <Route path="/login" component={Login} />
         <Route path="/profile" component={User} />

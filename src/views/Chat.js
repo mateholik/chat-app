@@ -4,6 +4,8 @@ import RoomsList from "./../components/RoomsList";
 import RoomMessages from "./../components/RoomMessages";
 import AddMessage from "./../components/AddMessage";
 import AddRoom from "./../components/AddRoom";
+import Spinner from "./../components/Spinner";
+import arrow from "./../assets/arrow.svg";
 
 export default function ChatMain() {
   const [chatRooms, setChatRooms] = useState([]);
@@ -63,7 +65,6 @@ export default function ChatMain() {
   };
 
   const handleNewRoom = (item) => {
-    console.log(item);
     setChatRooms((prev) => {
       return prev.concat(item);
     });
@@ -71,22 +72,36 @@ export default function ChatMain() {
   };
 
   return (
-    <div className="row">
-      <div className="col-3">
-        <RoomsList
-          list={chatRooms}
-          roomClicked={(item) => setActiveRoom(item)}
-        />
-        <AddRoom newRoom={(item) => handleNewRoom(item)} />
-      </div>
-      <main className="col-7">
-        <div className="card">
-          <div className="card-body">
-            <RoomMessages activeRoom={activeRoom} />
-            <AddMessage addMessage={(item) => submit(item)} />
+    <>
+      <h1 className="text-center">Chat</h1>
+      {!chatRooms.length > 0 ? (
+        <Spinner />
+      ) : (
+        <div className="row">
+          <div className="col-md-3 mb-4">
+            <RoomsList
+              list={chatRooms}
+              roomClicked={(item) => setActiveRoom(item)}
+            />
+            <AddRoom newRoom={(item) => handleNewRoom(item)} />
+          </div>
+          <div className="col-md-7">
+            {!Object.keys(activeRoom).length ? (
+              <div>
+                <img className="arrow" src={arrow} alt="arrow" />
+                Please select chat room
+              </div>
+            ) : (
+              <div className="card">
+                <div className="card-body">
+                  <RoomMessages activeRoom={activeRoom} />
+                  <AddMessage addMessage={(item) => submit(item)} />
+                </div>
+              </div>
+            )}
           </div>
         </div>
-      </main>
-    </div>
+      )}
+    </>
   );
 }
