@@ -15,8 +15,19 @@ export default function AddMessage({ addMessage, roomChanged, updating }) {
   }, [roomChanged]);
 
   const submit = () => {
+    const forbidden = ["fuck", "shit", "php"];
+    const forbiddenFound = forbidden.filter((word) =>
+      input.text.includes(word)
+    );
+
     if (!input.text) {
       setInput((prev) => ({ ...prev, error: "Can not be empty" }));
+      return;
+    } else if (forbiddenFound.length) {
+      setInput((prev) => ({
+        ...prev,
+        error: "You are using forbidden words!",
+      }));
       return;
     }
     addMessage(input.text);
