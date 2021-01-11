@@ -15,19 +15,29 @@ export default function ChatMain({ isAuthed }) {
 
   useEffect(() => {
     if (isAuthed) {
+      let source = axios.CancelToken.source();
       axios
         .get("https://api.jsonbin.io/b/5ff7300a1d107958ae4c853f", {
           headers: {
             "secret-key":
               "$2b$10$/KvDJqnJt55Gze7rrT01fucNxX99lfQaMtLm6ltlm0Vz4N5IvE.za",
           },
+          cancelToken: source.token,
         })
         .then((res) => {
           setChatRooms(res.data);
         })
         .catch((e) => {
-          console.log(e);
+          if (axios.isCancel(e)) {
+            console.log("caught cancel");
+          } else {
+            console.log(e);
+          }
         });
+
+      return () => {
+        source.cancel();
+      };
     }
   }, []);
 
