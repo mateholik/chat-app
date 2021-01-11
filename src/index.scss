@@ -6,7 +6,6 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
-
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
@@ -115,10 +114,19 @@ header .navbar-brand {
         width: 100%;
         border: none;
         outline: none;
+        padding: 0 0.5rem;
+        background: #f3e8d9;
+        transition: 0.2s;
+        &:disabled {
+          background: #f5f9ff;
+        }
       }
       textarea {
         resize: none;
         height: 250px;
+        @media (max-width: 600px) {
+          height: 480px;
+        }
       }
     }
     img {
@@ -149,5 +157,16 @@ header .navbar-brand {
   100% {
     transform: translateX(-0.4em) rotate(180deg);
     opacity: 1;
+  }
+}
+
+.toast {
+  opacity: 1 !important;
+  position: absolute;
+  bottom: 3rem;
+  left: 2rem;
+  z-index: 999;
+  @media (max-width: 600px) {
+    display: none;
   }
 }

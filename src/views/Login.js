@@ -6,7 +6,7 @@ export default function Login({ validForm, isAuthed, logOut }) {
     <div>
       <h1 className="text-center">Login</h1>
       {isAuthed ? (
-        <p>
+        <p className="m-0">
           You alreade logged in.{" "}
           <span
             style={{ cursor: "pointer", color: "#0d6efd" }}

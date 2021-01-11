@@ -7,7 +7,7 @@ export default function Profile({ isAuthed }) {
     <div>
       <h1 className="text-center">Profile details</h1>
       {!isAuthed ? (
-        <p>
+        <p className="m-0">
           Please <Link to="/">login</Link>
         </p>
       ) : (

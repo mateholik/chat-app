@@ -60,7 +60,7 @@ export default function AddMessage({ addMessage, roomChanged, updating }) {
           </button>
         </div>
       </div>
-      <p style={{ color: "red" }}>{input.error}</p>
+      <p style={{ color: "red", marginBottom: 0 }}>{input.error}</p>
     </>
   );
 }

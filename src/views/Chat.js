@@ -13,6 +13,7 @@ export default function ChatMain({ isAuthed }) {
   const [activeRoom, setActiveRoom] = useState({});
   const [roomChanged, setRoomChanged] = useState(false);
   const [updating, setUpdating] = useState(false);
+  const [fastMessage, setFastMessage] = useState(false);
 
   useEffect(() => {
     if (isAuthed) {
@@ -61,6 +62,17 @@ export default function ChatMain({ isAuthed }) {
       })
     );
     updateAPI(updatedRooms);
+    //scroll to bottom
+    setTimeout(() => {
+      var scrollingElement = document.scrollingElement || document.body;
+      scrollingElement.scrollTop = scrollingElement.scrollHeight;
+    }, 50);
+
+    //show dissapearing message
+    setFastMessage(true);
+    setTimeout(() => {
+      setFastMessage(false);
+    }, 2000);
   };
 
   const updateAPI = (data) => {
@@ -100,7 +112,7 @@ export default function ChatMain({ isAuthed }) {
     <>
       <h1 className="text-center">Chat</h1>
       {!isAuthed ? (
-        <p>
+        <p className="m-0">
           Please <Link to="/">login</Link>
         </p>
       ) : (
@@ -108,34 +120,61 @@ export default function ChatMain({ isAuthed }) {
           {!chatRooms.length > 0 ? (
             <Spinner />
           ) : (
-            <div className="row">
-              <div className="col-md-3 mb-4">
-                <RoomsList
-                  list={chatRooms}
-                  roomClicked={(item) => handleRoomClicked(item)}
-                />
-                <AddRoom newRoom={(item) => handleNewRoom(item)} />
-              </div>
-              <div className="col-md-7">
-                {!Object.keys(activeRoom).length ? (
-                  <div>
-                    <img className="arrow" src={arrow} alt="arrow" />
-                    Please select chat room
-                  </div>
-                ) : (
-                  <div className="card">
-                    <div className="card-body">
-                      <RoomMessages activeRoom={activeRoom} />
-                      <AddMessage
-                        addMessage={(item) => submit(item)}
-                        roomChanged={roomChanged}
-                        updating={updating}
-                      />
+            <>
+              <div className="row">
+                <div className="col-md-3 mb-4">
+                  <RoomsList
+                    list={chatRooms}
+                    roomClicked={(item) => handleRoomClicked(item)}
+                  />
+                  <AddRoom newRoom={(item) => handleNewRoom(item)} />
+                </div>
+                <div className="col-md-7 mb-4">
+                  {!Object.keys(activeRoom).length ? (
+                    <div>
+                      <img className="arrow" src={arrow} alt="arrow" />
+                      Please select chat room
                     </div>
-                  </div>
-                )}
+                  ) : (
+                    <div className="card">
+                      <div className="card-body">
+                        <RoomMessages activeRoom={activeRoom} />
+                        <AddMessage
+                          addMessage={(item) => submit(item)}
+                          roomChanged={roomChanged}
+                          updating={updating}
+                        />
+                      </div>
+                    </div>
+                  )}
+                </div>
               </div>
-            </div>
+              {fastMessage ? (
+                <div
+                  className="toast"
+                  role="alert"
+                  aria-live="assertive"
+                  aria-atomic="true"
+                >
+                  <div className="toast-header">
+                    <img
+                      src={activeRoom.img}
+                      className="rounded me-2"
+                      style={{ width: "20px", height: "20px" }}
+                      alt="user"
+                    ></img>
+                    <strong className="me-auto">{activeRoom.user}</strong>
+                  </div>
+                  <div className="toast-body">
+                    {activeRoom.addedMessages
+                      ? activeRoom.addedMessages[
+                          activeRoom.addedMessages.length - 1
+                        ]
+                      : ""}
+                  </div>
+                </div>
+              ) : null}
+            </>
           )}
         </div>
       )}
