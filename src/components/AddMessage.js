@@ -1,11 +1,17 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 const initialState = {
   text: "",
   error: "",
 };
 
-export default function AddMessage({ addMessage }) {
+export default function AddMessage({ addMessage, roomChanged }) {
   const [input, setInput] = useState(initialState);
+
+  useEffect(() => {
+    if (roomChanged === true) {
+      setInput(initialState);
+    }
+  }, [roomChanged]);
 
   const submit = () => {
     if (!input.text) {

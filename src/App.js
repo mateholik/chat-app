@@ -7,7 +7,7 @@ import Header from "./layout/Header";
 import Footer from "./layout/Footer";
 
 function App() {
-  const [loggedInUser, setLoggedInUser] = useState(false);
+  const [loggedInUser, setLoggedInUser] = useState(true);
   return (
     <Router>
       <Header />

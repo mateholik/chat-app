@@ -11,6 +11,7 @@ import arrow from "./../assets/arrow.svg";
 export default function ChatMain({ isAuthed }) {
   const [chatRooms, setChatRooms] = useState([]);
   const [activeRoom, setActiveRoom] = useState({});
+  const [roomChanged, setRoomChanged] = useState(false);
 
   useEffect(() => {
     if (isAuthed) {
@@ -74,6 +75,14 @@ export default function ChatMain({ isAuthed }) {
     setActiveRoom(item);
   };
 
+  const handleRoomClicked = (item) => {
+    setActiveRoom(item);
+    setRoomChanged(true);
+    setTimeout(() => {
+      setRoomChanged(false);
+    }, 50);
+  };
+
   return (
     <>
       <h1 className="text-center">Chat</h1>
@@ -90,7 +99,7 @@ export default function ChatMain({ isAuthed }) {
               <div className="col-md-3 mb-4">
                 <RoomsList
                   list={chatRooms}
-                  roomClicked={(item) => setActiveRoom(item)}
+                  roomClicked={(item) => handleRoomClicked(item)}
                 />
                 <AddRoom newRoom={(item) => handleNewRoom(item)} />
               </div>
@@ -104,7 +113,10 @@ export default function ChatMain({ isAuthed }) {
                   <div className="card">
                     <div className="card-body">
                       <RoomMessages activeRoom={activeRoom} />
-                      <AddMessage addMessage={(item) => submit(item)} />
+                      <AddMessage
+                        addMessage={(item) => submit(item)}
+                        roomChanged={roomChanged}
+                      />
                     </div>
                   </div>
                 )}
