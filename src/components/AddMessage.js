@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from "react";
+import Spinner from "./Spinner";
 const initialState = {
   text: "",
   error: "",
 };
 
-export default function AddMessage({ addMessage, roomChanged }) {
+export default function AddMessage({ addMessage, roomChanged, updating }) {
   const [input, setInput] = useState(initialState);
 
   useEffect(() => {
@@ -42,8 +43,9 @@ export default function AddMessage({ addMessage, roomChanged }) {
             onClick={submit}
             className="btn btn-outline-secondary"
             type="button"
+            style={{ width: "65px", height: "46px" }}
           >
-            Send
+            {updating ? <Spinner /> : "Send"}
           </button>
         </div>
       </div>

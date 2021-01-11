@@ -12,6 +12,7 @@ export default function ChatMain({ isAuthed }) {
   const [chatRooms, setChatRooms] = useState([]);
   const [activeRoom, setActiveRoom] = useState({});
   const [roomChanged, setRoomChanged] = useState(false);
+  const [updating, setUpdating] = useState(false);
 
   useEffect(() => {
     if (isAuthed) {
@@ -63,6 +64,7 @@ export default function ChatMain({ isAuthed }) {
   };
 
   const updateAPI = (data) => {
+    setUpdating(true);
     axios
       .put("https://api.jsonbin.io/b/5ff7300a1d107958ae4c853f", data, {
         headers: {
@@ -71,10 +73,11 @@ export default function ChatMain({ isAuthed }) {
         },
       })
       .then((res) => {
-        console.log(res);
+        setUpdating(false);
       })
       .catch((e) => {
         console.log(e);
+        setUpdating(false);
       });
   };
 
@@ -126,6 +129,7 @@ export default function ChatMain({ isAuthed }) {
                       <AddMessage
                         addMessage={(item) => submit(item)}
                         roomChanged={roomChanged}
+                        updating={updating}
                       />
                     </div>
                   </div>
